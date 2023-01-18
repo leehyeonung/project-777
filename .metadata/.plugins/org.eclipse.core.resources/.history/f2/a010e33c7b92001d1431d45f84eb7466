@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezen.book.repository.BookDAO">
+	<select id="getBookList" resultType="com.ezen.book.domain.BookVO">
+		select * from book
+	</select>
+	
+	
+
+
+   <select id="selectBookListPaging" resultType="com.ezen.book.domain.BookVO">
+         select*from book where
+         book_title like CONCAT('%', #{keyword}, '%')
+         order by book_num desc limit #{pageStart},#{qty}
+   </select>
+   
+   <select id="searchBookTotalCount" resultType="int">
+   select count(book_num) from book where book_title like CONCAT('%', #{keyword}, '%')
+   </select>
+   
+<select id="getBookList2" resultType="com.ezen.book.domain.BookVO">
+      select * from book where book_ca_num=#{content};
+   </select>
+   
+   
+</mapper>
+

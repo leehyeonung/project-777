@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Users\ezen\Desktop\√÷Ω≈\book1-main (1)\book1-main\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1521291847.index
+3437961190.index
+3352408275.index
+1726740882.index
+3512773114.index
+752128526.index

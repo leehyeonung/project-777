@@ -1,0 +1,115 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<link href="/resources/css/star.css" rel="stylesheet"/>
+<style>
+    .bookDetail{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .title {
+        width: 900px;
+        height: 100px;
+        background-color: aquamarine;
+    }
+    .pyoji{
+        margin-right: 50px;
+    }
+    .seoji{
+        margin-right: 100px;
+    }
+    .intro{
+        width: 600px;
+        background-color: gray;
+    }
+    .detail{
+        width: 600px;
+        height: 400px;
+        background-color: beige;
+    }
+    .review{
+       
+    }
+   .abcd{
+        display: flex;
+   }
+   .arrow{
+        display: flex;
+        flex-direction: column;
+   }
+   .qty{
+        display:flex;
+        flex-direction: row;
+   }
+   .qty > input{
+        height: 20px;
+        width: 60px;
+   }
+</style>
+</head>
+<body>
+    <div class="bookDetail">
+        <div class="title">책 제목</div>
+        <div class="abcd">
+	        <div class="pyoji">
+                <img src="/resources/images/asd.jpg" height="600px" alt="pyo">            
+            </div>
+	        <div class="seoji">
+                서지 정보<br>
+                판매가 OOOOO원<br>
+                어쩌구저쩌구<br>
+                배송료 OOOO원<br>
+                어쩌구<br><br>
+                <div class="qty">
+                수량 <input type="text" name="book_count">
+                    <div class="arrow">
+                        <a href="#"><img src="/resources/images/up.png" class="upArrow" alt="upArrow"></a>
+                        <a href="#"><img src="/resources/images/down.png" class="downArrow" alt="downArrow"></a><br><br>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary">장바구니 담기</button>
+                <button type="button" class="btn btn-success">바로구매</button>
+            </div>
+        </div>
+        <br>
+	    <div class="intro">책 소개
+            《헬스의 정석-이론편》 《헬스의 정석-근력운동편》 《다이어트의 정석》 《홈트의 정석》 총 4권의 헬스 시리즈로 어디서도 못 들어본 소비자 중심의 
+            정보로 독자에게 꾸준히 사랑받아온 수피가, 이번에는 ‘헬알못’을 위해 팔을 걷어붙였다. 유머와 독설을 장착한 꿀잼 가득한 강의를 깔깔거리며 읽다 보면 
+            어느새 헬스 초보를 탈출하게 된다.
+        </div>
+	    <div class="detail">
+            책 상세
+        </div>
+        <div class="review">
+            <form class="mb-3" name="myform" id="myform" method="post">
+                <fieldset>
+                    <span class="text-bold">별점을 선택해주세요</span>
+                    <input type="radio" name="reviewStar" value="5" id="rate1"><label
+                        for="rate1">★</label>
+                    <input type="radio" name="reviewStar" value="4" id="rate2"><label
+                        for="rate2">★</label>
+                    <input type="radio" name="reviewStar" value="3" id="rate3"><label
+                        for="rate3">★</label>
+                    <input type="radio" name="reviewStar" value="2" id="rate4"><label
+                        for="rate4">★</label>
+                    <input type="radio" name="reviewStar" value="1" id="rate5"><label
+                        for="rate5">★</label>
+                </fieldset>
+                <div>
+                    <textarea class="col-auto form-control" type="text" id="reviewContents"
+                              placeholder="좋은 수강평을 남겨주시면 Cocolo에 큰 힘이 됩니다! 포인트 5000p도 지급!!"></textarea>
+                </div>
+            </form>
+        </div>								
+    </div>
+
+</body>
+</html>

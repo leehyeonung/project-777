@@ -1,0 +1,29 @@
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+
+@Slf4j
+public class Crawling {
+
+    public static void main(String[] args) {
+        final String kyoboUrl = "https://product.kyobobook.co.kr/bestseller/online?period=001#?page=1&per=20&ymw=&period=001&saleCmdtClstCode=&dsplDvsnCode=000&dsplTrgtDvsnCode=001&saleCmdtDsplDvsnCode=";
+        Connection conn = Jsoup.connect(kyoboUrl);
+
+        try {
+            Document document = conn.get();
+            Elements imageUrlElements = document.getElementsByClass("prod_name");
+
+            for (Element element : imageUrlElements) {
+               log.info(element);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

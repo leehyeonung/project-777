@@ -1,0 +1,110 @@
+package com.ezen.book.controller;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.ezen.book.domain.BookVO;
+import com.ezen.book.service.BookService;
+
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * Handles requests for the application home page.
+ */
+@Slf4j
+@Controller
+public class HomeController {
+
+   private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+   @Inject
+   private BookService bks;
+
+   /**
+    * Simply selects the home view to render by returning its name.
+    */
+
+   @RequestMapping(value = "/", method = RequestMethod.GET)
+   public String home(Locale locale, Model model) {
+      logger.info("Welcome home! The client locale is {}.", locale);
+
+      Date date = new Date();
+      DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+
+      String formattedDate = dateFormat.format(date);
+
+      model.addAttribute("serverTime", formattedDate);
+
+      ArrayList<BookVO> bvo = bks.getBookList(); //
+      model.addAttribute("book_list", bvo);
+      model.addAttribute("content", "main");
+      return "home";
+   }
+   @GetMapping("/introduce")
+   public String getIntroduce(Model model) {
+      String okay="main";
+      model.addAttribute("content", okay);
+      return "/board/boardIntroduce";
+   }
+   @GetMapping("/content")
+   public String detailList(Model model, @RequestParam("content")String content) {
+      String okay=content;
+      model.addAttribute("content", okay);
+      return "/board/boardIntroduce";   
+   }
+   @GetMapping("/tos")
+   public String getTos(Model model) {
+      String okay="tos";
+      model.addAttribute("content", okay);
+      return "/board/boardTos";
+   }
+   @GetMapping("/pp")
+   public String getPp(Model model) {
+      String okay="pp";
+      model.addAttribute("content", okay);
+      return "/board/boardTos";
+   }
+   
+  
+   @GetMapping("/interest")
+   public String interest(Model model,@RequestParam("mem_cno") int mem_cno) {
+      String content="";
+      switch (mem_cno) {
+   case 1: 
+      content="novel";
+      break;
+   case 2: 
+      content="essay";
+      break;
+   case 3: 
+      content="life";
+      break;
+   case 4: 
+      content="computer";
+      break;
+   default:
+      content="problem";
+      break;
+   }
+         model.addAttribute("content", content);
+         ArrayList<BookVO> bvo = bks.getSelectBookList(mem_cno); //
+         model.addAttribute("book_list", bvo);
+         return "home";
+      }
+   
+   
+}

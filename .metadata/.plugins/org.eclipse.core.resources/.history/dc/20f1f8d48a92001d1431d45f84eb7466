@@ -1,0 +1,5 @@
+const ses = '<c:out value="${ses.mem_id}" />';
+if(ses == null || ses == ''){
+	alert('로그아웃 되었습니다. 메인화면으로 이동합니다.');
+	location.href='/';
+}

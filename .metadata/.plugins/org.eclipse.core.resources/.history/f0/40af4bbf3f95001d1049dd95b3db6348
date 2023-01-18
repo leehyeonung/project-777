@@ -1,0 +1,37 @@
+package com.ezen.book;
+
+import javax.inject.Inject;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.ezen.book.domain.BoardVO;
+import com.ezen.book.domain.MemberVO;
+import com.ezen.book.repository.BoardDAO;
+import com.ezen.book.repository.MemberDAO;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RunWith(SpringJUnit4ClassRunner.class) 
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+public class BoardTest {
+
+	//DB연결 체크
+	@Inject
+	private MemberDAO mdao;
+	
+	@Test
+	public void insertBoard() {
+		MemberVO mvo =  new MemberVO();
+		
+		mvo.setMem_id("test Title");
+		mvo.setMem_pw("Test Content");
+		mvo.setMem_cell_num("test writer");
+		
+		int isOk = bdao.insertMember(mvo);
+		log.info("insert test : "+isOk);
+	}
+}

@@ -1,0 +1,88 @@
+package com.ezen.book.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.ezen.book.domain.FaqVO;
+import com.ezen.book.domain.MemberVO;
+import com.ezen.book.repository.MemberDAO;
+import com.ezen.book.service.FaqService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RequestMapping("/faq/*")
+@Controller
+public class FaqController {
+   @Inject
+   private FaqService fs;
+   @Inject
+   private MemberDAO mao;
+   
+   @GetMapping("/faqReg")
+   public String boardRegisterGet(Model model) {
+	   model.addAttribute("category", "faq");
+	      model.addAttribute("content", "faqRegister");
+      return "/member/memberAdmin";
+   }
+   
+   @PostMapping("/faqReg")
+   public String register(FaqVO fvo, RedirectAttributes reAttr) {
+      log.info(fvo.toString());
+      int isOk = fs.register(fvo);
+      reAttr.addFlashAttribute("isOk", isOk>0 ? "1":"0");
+      log.info("FAQ 글쓰기 체크1 >> " + (isOk>0 ? "Ok":"Fail"));
+     
+      
+      return "redirect:/member/memberAdmin";
+   }
+   
+   @GetMapping("/faqList")
+   public String faqList(Model model) {
+      List<FaqVO> list = fs.getFaqList();
+      model.addAttribute("li", list);
+      log.info("FAQ 목록 체크2");
+      
+      model.addAttribute("category", "faq");
+      model.addAttribute("content", "faqList");
+      return "/member/memberAdmin";
+   }
+   @GetMapping("faqDetail")
+   public String faqDetail(Model model, @RequestParam("faq_num")int faq_num) {
+      log.info("FAQ 디테일 체크1");
+      FaqVO fd = fs.getDetail(faq_num);
+      model.addAttribute("fo", fd);
+      model.addAttribute("category", "faq");
+      model.addAttribute("content", "faqDetail");
+      return "/member/memberAdmin";
+      
+   }
+   @GetMapping("/faqModify")
+   public String faqModify(Model model, @RequestParam("faq_num")int faq_num) {
+      log.info("FAQ 디테일 체크1");
+      FaqVO fd = fs.getDetail(faq_num);
+      model.addAttribute("fo", fd);
+      model.addAttribute("category", "faq");
+      model.addAttribute("content", "faqDetail");
+      return "/member/memberAdmin";
+      
+   }
+   
+   @PostMapping("/faqModify")
+   public String faqModify(RedirectAttributes reAttr, FaqVO fvo) {
+      log.info("FAQ 모디파이 체크1");
+      log.info(fvo.toString());
+      int isUp = fs.modifyFaq(fvo);
+      reAttr.addFlashAttribute(isUp>0 ? "1":"0");
+      return "redirect:/member/memberAdmin";
+   }
+}
